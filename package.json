@@ -2,18 +2,18 @@
   "name": "Logins",
   "version": "1.0.0",
   "engines": {
-    "node": "15.8.0",
-    "npm": "7.5.1"
+    "node": "12.16.0",
+    "npm": "6.13.7"
   },
   "description": "A Simple Login Example using Node.js, Mongo and Redis",
   "main": "./server/app.js",
   "scripts": {
-    "buildLoginBundle": "babel ./client/login ./client/helper --presets @babel/preset-react --out-file ./hosted/loginBundle.js",
-    "buildAppBundle": "babel ./client/app ./client/helper --presets @babel/preset-react --out-file ./hosted/bundle.js",
     "build": "npm run buildLoginBundle && npm run buildAppBundle",
+    "buldLoginBundle": "babel ./client/login ./client/helper --presets @babel/preset-react --out-file ./hosted/loginBundle.js",
+    "buildAppBundle": "babel ./client/app ./client/helper --presets @babel/preset-react --out-file ./hosted/bundle.js",
+    "nodemon": "nodemon --watch ./server ./server/app.js",
     "watchLoginBundle": "babel --watch ./client/login ./client/helper --presets @babel/preset-react --out-file ./hosted/loginBundle.js",
     "watchAppBundle": "babel --watch ./client/app ./client/helper --presets @babel/preset-react --out-file ./hosted/bundle.js",
-    "nodemon": "nodemon --watch ./server ./server/app.js",
     "start": "node ./server/app.js",
     "pretest": "eslint ./server --fix",
     "test": "echo \"Tests complete\""
@@ -28,7 +28,7 @@
   "license": "Apache 2.0",
   "devDependencies": {
     "@babel/cli": "^7.8.4",
-    "@babel/compat-data": "^7.13.15",
+    "@babel/compat-data": "^7.8.6",
     "@babel/core": "^7.8.7",
     "@babel/preset-env": "^7.8.7",
     "@babel/preset-react": "^7.13.13",

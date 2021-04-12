@@ -1,14 +1,14 @@
-const handleError=(message)=>{
+const handleError = (message) =>{
     $("#errorMessage").text(message);
     $("#domoMessage").animate({width:'toggle'},350);
 };
 
-const redirect=(response)=>{
+const redirect = (response) =>{
     $("#domoMessage").animate({width:'hide'}, 350);
     window.location=response.redirect;
 };
 
-const sendAjax=(type,action,data,success)=>{
+const sendAjax = (type,action,data,success)=>{
     $.ajax({
         cache:false,
         type: type,
