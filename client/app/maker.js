@@ -3,12 +3,29 @@ const handleDomo=(e)=>{
     
     $("#domoMessage").animate({width:'hide'},350);
     
-    if($("#domoName").val()==''||$("#domoAge").val()==''){
+    if($("#domoName").val()==''||$("#domoAge").val()==''||$("#domoLevel").val()==''){
         handleError("RAWR! All fields are required!");
         return false;
     }
     
     sendAjax('POST', $("#domoForm").attr("action"),$("#domoForm").serialize(), function(){
+        loadDomosFromServer();
+    });
+    
+    return false;
+};
+
+const handleUpdate=(e)=>{
+    e.preventDefault();
+    
+    $("#domoMessage").animate({width:'hide'},350);
+    
+    if($("#updateName").val()==''){
+        handleError("RAWR! Name is required!");
+        return false;
+    }
+    
+    sendAjax('POST', $("#updateForm").attr("action"),$("#updateForm").serialize(), function(){
         loadDomosFromServer();
     });
     
@@ -35,6 +52,24 @@ const DomoForm=(props)=>{
     );
 };
 
+const UpdateForm=(props)=>{
+    return (
+        <form id="updateForm" 
+            name="updateForm"
+            onSubmit={handleUpdate}
+            action="/update"
+            method="POST"
+            className="updateForm"
+            >
+            
+            <label htmlFor="name">Name: </label>
+            <input id="updateName" type="text" name="name" placeholder="Domo Name"/>
+            <input type="hidden" name="_csrf" value={props.csrf}/>
+            <input className="updateDomoSubmit" type="submit" value="Level Domo Up!" />
+        </form>
+    );
+};
+
 const DomoList=function(props){
     if(props.domos.length===0){
         return(
@@ -50,6 +85,7 @@ const DomoList=function(props){
             <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
             <h3 className="domoName"> Name: {domo.name} </h3>
             <h3 className="domoAge"> Age: {domo.age} </h3>
+            <h3 className="domoLevel"> Level: {domo.level} </h3>
         </div>
         );
     });
@@ -72,6 +108,10 @@ const loadDomosFromServer=()=>{
 const setup=function(csrf){
     ReactDOM.render(
         <DomoForm csrf={csrf} />, document.querySelector("#makeDomo")
+    );
+    
+    ReactDOM.render(
+        <UpdateForm csrf={csrf} />, document.querySelector("#updateDomo")
     );
     
     ReactDOM.render(
