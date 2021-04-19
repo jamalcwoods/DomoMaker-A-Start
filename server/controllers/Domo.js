@@ -84,7 +84,7 @@ const updateDomo2 = (req, res) => {
       tempDomo2.level += tempDomo1.age;
       tempDomo1.age++;
 
-      const domoPromise1 = tempDomo1.save();
+      tempDomo1.save();
       const domoPromise2 = tempDomo2.save();
 
       domoPromise2.then(() => res.json({ redirect: '/maker' }));
@@ -96,6 +96,7 @@ const updateDomo2 = (req, res) => {
 
       return domoPromise2;
     })
+    return domoPromise2;
   });
 
   return false;
