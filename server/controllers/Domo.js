@@ -77,14 +77,17 @@ const updateDomo2 = (req, res) => {
     if (err) { return res.status(500).json({ err }); }
     if (!doc) { return res.json({ warning: 'Domo 1 not found!' }); }
     const tempDomo1 = doc;
+    let domo1Age = tempDomo1.age
+    tempDomo1.age++;
+
+    const domoPromise1 = tempDomo1.save()
+    
     Domo.DomoModel.findByName(req.session.account._id, req.body.name2, (err2, doc2) => {
-      if (err2) { return res.status(500).json({ err }); }
+      if (err2) { return res.status(500).json({ err2 }); }
       if (!doc2) { return res.json({ warning: 'Domo 2 not found!' }); }
       const tempDomo2 = doc2;
-      tempDomo2.level += tempDomo1.age;
-      tempDomo1.age++;
+      tempDomo2.level += domo1Age;
 
-      tempDomo1.save();
       const domoPromise2 = tempDomo2.save();
 
       domoPromise2.then(() => res.json({ redirect: '/maker' }));
@@ -96,7 +99,7 @@ const updateDomo2 = (req, res) => {
 
       return domoPromise2;
     })
-    return domoPromise2;
+    return domoPromise1;
   });
 
   return false;
